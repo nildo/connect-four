@@ -24,13 +24,16 @@ class ConnectFour extends Component {
 
     const newBoard = board.slice();
     const newTops = tops.slice();
-    const newCurrentPlayer = currentPlayer === 1 ? 2 : 1;
 
     if (newTops[column] < newBoard[column].length) {
       newBoard[column][newTops[column]] = currentPlayer;
       newTops[column]++;
       const newWinner = checkWinner(newBoard);
       const newDraw = checkDraw(newBoard);
+      let newCurrentPlayer = currentPlayer;
+      if (!newWinner && !newDraw) {
+        newCurrentPlayer = currentPlayer === 1 ? 2 : 1;
+      }
       this.setState({
         ...this.state,
         board: newBoard,
@@ -54,25 +57,24 @@ class ConnectFour extends Component {
 
   render() {
     const { board, currentPlayer, winner, draw } = this.state;
-    let turnMessage, winnerMessage, drawMessage;
-    if (winner === 0 && !draw) {
-      turnMessage = (
-        <h2>
-          Turn:&nbsp;
-          <span style={
-            currentPlayer === 1
-              ? styles.player1
-              : styles.player2
-          }>
-            Player {currentPlayer}
-          </span>
-        </h2>
-      );
-    } else if (winner === 0 && draw) {
+    const turnMessage = (
+      <h2>
+        Turn:&nbsp;
+        <span style={
+          currentPlayer === 1
+            ? styles.player1
+            : styles.player2
+        }>
+          Player {currentPlayer}
+        </span>
+      </h2>
+    );
+    let winnerMessage, drawMessage;
+    if (draw) {
       drawMessage = (
         <h2>Draw!</h2>
       );
-    } else {
+    } else if (winner) {
       winnerMessage = (
         <h2>
           Winner:&nbsp;
@@ -91,7 +93,10 @@ class ConnectFour extends Component {
         <h1>Connect Four</h1>
         <div style={styles.options}>
           <div>
-            {turnMessage || drawMessage || winnerMessage}
+            {turnMessage}
+          </div>
+          <div>
+            {drawMessage || winnerMessage}
           </div>
           <div>
             <button onClick={this.reset}>Reset</button>
@@ -113,6 +118,7 @@ const styles = {
     width: NUM_COLS*CELL_SIZE,
     margin: '0 auto',
     textAlign: 'center',
+    fontFamily: 'sans-serif',
   },
   options: {
     display: 'flex',
