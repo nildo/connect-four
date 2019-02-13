@@ -1,4 +1,5 @@
 import React from 'react';
+import { CELL_SIZE, CIRCLE_SIZE } from './constants';
 
 const Cell = ({ type }) => (
   <div style={styles.cell}>
@@ -8,23 +9,19 @@ const Cell = ({ type }) => (
   </div>
 );
 
-const cellSize = 80;
-const circleSize = 50;
-
 const styles = {
   cell: {
     backgroundColor: 'blue',
-    width: cellSize,
-    height: cellSize,
-    margin: 0,
+    width: CELL_SIZE,
+    height: CELL_SIZE,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
   },
   circle: {
-    borderRadius: 50,
-    width: circleSize,
-    height: circleSize,
+    borderRadius: CIRCLE_SIZE/2,
+    width: CIRCLE_SIZE,
+    height: CIRCLE_SIZE,
   },
   white: {
     backgroundColor: 'white',

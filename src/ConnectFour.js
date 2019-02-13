@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import Board from './Board';
 import { checkWinner, checkDraw } from './utils';
+import { NUM_COLS, NUM_ROWS, CELL_SIZE } from './constants';
 
 class ConnectFour extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      board: new Array(7).fill(0).map(() => new Array(6).fill(0)),
-      tops: new Array(7).fill(0),
+      board: new Array(NUM_COLS).fill(0).map(() => new Array(NUM_ROWS).fill(0)),
+      tops: new Array(NUM_COLS).fill(0),
       currentPlayer: 1,
       winner: 0,
       draw: false,
@@ -43,8 +44,8 @@ class ConnectFour extends Component {
 
   reset = () => {
     this.setState({
-      board: new Array(7).fill(0).map(() => new Array(6).fill(0)),
-      tops: new Array(7).fill(0),
+      board: new Array(NUM_COLS).fill(0).map(() => new Array(NUM_ROWS).fill(0)),
+      tops: new Array(NUM_COLS).fill(0),
       currentPlayer: 1,
       winner: 0,
       draw: false,
@@ -104,7 +105,7 @@ class ConnectFour extends Component {
 
 const styles = {
   container: {
-    width: 7*80,
+    width: NUM_COLS*CELL_SIZE,
     margin: '0 auto',
     textAlign: 'center',
   },
