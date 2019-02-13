@@ -97,7 +97,12 @@ class ConnectFour extends Component {
             <button onClick={this.reset}>Reset</button>
           </div>
         </div>
-        <Board board={board} play={this.play}/>
+        <Board
+          board={board}
+          play={this.play}
+          currentPlayer={currentPlayer}
+          winner={winner}
+        />
       </div>
     );
   }
